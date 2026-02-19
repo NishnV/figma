@@ -278,7 +278,7 @@
 }
 
 .campaign-title {
-    font-family: 'Avenir', 'Montserrat', sans-serif;
+    font-family: 'Avenir', 'Avenir Next', 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     font-size: clamp(3rem, 8vw, 6rem);
     font-weight: 300;
     letter-spacing: 0.1em;
