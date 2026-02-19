@@ -1,0 +1,558 @@
+.product-detail-page {
+    background: var(--bg);
+    min-height: 100vh;
+    padding-top: 90px;
+    color: var(--text);
+}
+
+.pd-container {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 4rem;
+    display: grid;
+    grid-template-columns: 2.5fr 1fr;
+    gap: 4rem;
+    align-items: start;
+    margin-bottom: 4rem;
+}
+
+/* Images Grid Layout */
+.pd-images-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    height: fit-content;
+    align-items: stretch;
+}
+
+.pd-big-image {
+    width: 100%;
+    /* Let the height be determined by the small images stack or vice versa. 
+       Setting aspect-ratio on the grid item helps stable loading */
+    aspect-ratio: 3/4;
+    position: relative;
+}
+
+.pd-big-image img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.pd-small-images {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    height: 100%;
+}
+
+.pd-small-img {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+}
+
+.pd-small-img img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Info Section */
+.pd-info-section {
+    padding-top: 0;
+    position: sticky;
+    top: 100px;
+}
+
+.pd-header h1 {
+    font-size: 10px;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.11em;
+    font-weight: 400;
+    text-transform: uppercase;
+}
+
+.pd-price {
+    font-size: 10px;
+    margin-bottom: 2rem;
+    font-weight: 400;
+    letter-spacing: 0.11em;
+    color: var(--text);
+}
+
+/* Color Selector */
+.pd-color-selector {
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.color-swatch {
+    width: 20px;
+    height: 20px;
+    background: #e5e5e5;
+    /* Beige default */
+    cursor: pointer;
+}
+
+.color-label {
+    font-size: 0.85rem;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Size Selector */
+.pd-size-selector {
+    margin-bottom: 2rem;
+    border-top: 1px solid #eee;
+    padding-top: 1.5rem;
+}
+
+.pd-sizes-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    padding-right: 2rem;
+    /* Give some space */
+}
+
+.pd-size-text {
+    background: none;
+    border: none;
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: #888;
+    cursor: pointer;
+    letter-spacing: 0.1em;
+    padding: 0.5rem;
+    transition: all 0.2s;
+}
+
+.pd-size-text:hover {
+    color: #000;
+}
+
+.pd-size-text.active {
+    color: #000;
+    font-weight: 700;
+}
+
+.pd-guide-link {
+    background: none;
+    border: none;
+    font-size: 0.85rem;
+    color: #888;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 0;
+    letter-spacing: 0.05em;
+}
+
+/* Actions */
+.pd-actions {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    align-items: center;
+}
+
+.pd-add-bag-btn {
+    flex: 1;
+    background: #000;
+    color: #fff;
+    border: none;
+    padding: 1rem;
+    font-size: 0.9rem;
+    letter-spacing: 0.2em;
+    cursor: pointer;
+    transition: opacity 0.3s;
+    text-transform: uppercase;
+}
+
+.pd-add-bag-btn:hover {
+    opacity: 0.9;
+}
+
+.pd-wishlist-icon-btn {
+    background: none;
+    border: 1px solid #ddd;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #000;
+}
+
+.pd-model-info {
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 2.5rem;
+    letter-spacing: 0.05em;
+}
+
+/* Accordion */
+.pd-accordion {
+    border-top: 1px solid #e5e5e5;
+}
+
+.accordion-item {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.accordion-header {
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    padding: 1.2rem 0;
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    font-weight: 500;
+    cursor: pointer;
+    color: #000;
+    text-transform: uppercase;
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0, 1, 0, 1);
+}
+
+.accordion-content.open {
+    max-height: 500px;
+    transition: max-height 0.4s ease-in-out;
+}
+
+.accordion-inner {
+    padding-bottom: 1.5rem;
+    font-size: 0.75rem;
+    line-height: 1.6;
+    color: #666;
+}
+
+.accordion-inner ul {
+    padding-left: 1rem;
+}
+
+/* Recommendations - force black text so it's always visible */
+.pd-recommendations {
+    padding: 0 4rem 4rem;
+    max-width: 100%;
+    margin: 0 auto;
+    border-top: 1px solid #eee;
+    padding-top: 4rem;
+    color: #000 !important;
+}
+
+.pd-recommendations .rec-title {
+    font-size: 0.9rem;
+    letter-spacing: 0.15em;
+    margin-bottom: 2rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    padding-left: 2px;
+    color: #000 !important;
+}
+
+.rec-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+}
+
+.rec-product {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: #000;
+    position: relative;
+    cursor: pointer;
+}
+
+.rec-product img {
+    width: 100%;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    display: block;
+    margin-bottom: 1rem;
+    background: #f5f5f5;
+}
+
+.rec-details-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.pd-recommendations .rec-info-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    color: #000 !important;
+}
+
+.pd-recommendations .rec-name {
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #000 !important;
+    font-weight: 500;
+}
+
+.pd-recommendations .rec-price {
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    color: #000 !important;
+}
+
+.pd-recommendations a.rec-info-text,
+.pd-recommendations a.rec-info-text:hover,
+.pd-recommendations a.rec-info-text:visited {
+    color: #000 !important;
+}
+
+.rec-bookmark,
+.rec-bookmark-btn {
+    color: #000;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.rec-bookmark:hover,
+.rec-bookmark-btn:hover {
+    opacity: 0.6;
+}
+
+.rec-bookmark-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (max-width: 1024px) {
+    .pd-container {
+        grid-template-columns: 1fr;
+        padding: 0 2rem;
+        gap: 3rem;
+    }
+
+    .pd-images-grid {
+        position: relative;
+        top: 0;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .pd-container,
+    .pd-recommendations {
+        padding: 0 1.5rem;
+    }
+
+    .rec-grid {
+        grid-template-columns: 1fr 1fr;
+        /* 2 columns on mobile */
+    }
+}
+
+/* Flying Item Animation */
+.flying-item {
+    position: fixed;
+    font-size: 2.5rem;
+    z-index: 9999;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    opacity: 1;
+}
+
+.flying-item.fly-to-cart {
+    top: 80px !important;
+    right: 150px !important;
+    left: auto !important;
+    transform: translate(0, 0) scale(0.3) rotate(360deg);
+    opacity: 0;
+}
+
+@media (max-width: 768px) {
+    .flying-item.fly-to-cart {
+        right: 80px !important;
+    }
+}
+
+/* Heart Animation */
+.heart-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.heart-icon {
+    position: relative;
+    z-index: 2;
+    transition: transform 0.3s ease;
+}
+
+.pd-wishlist-btn.active .heart-icon {
+    color: #ff4757;
+}
+
+.heart-wrapper.animate .heart-icon {
+    animation: heartPulse 0.6s ease;
+}
+
+@keyframes heartPulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    25% {
+        transform: scale(1.3);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+.heart-burst {
+    position: absolute;
+    color: #ff4757;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.heart-wrapper.animate .heart-burst {
+    animation: burstOut 1s ease-out forwards;
+}
+
+.heart-wrapper.animate .heart-1 {
+    animation-delay: 0s;
+}
+
+.heart-wrapper.animate .heart-2 {
+    animation-delay: 0.1s;
+}
+
+.heart-wrapper.animate .heart-3 {
+    animation-delay: 0.2s;
+}
+
+@keyframes burstOut {
+    0% {
+        opacity: 1;
+        transform: translate(0, 0) scale(0.5);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(var(--tx, 0), var(--ty, -40px)) scale(0);
+    }
+}
+
+.heart-1 {
+    --tx: -25px;
+    --ty: -25px;
+}
+
+.heart-2 {
+    --tx: 25px;
+    --ty: -25px;
+}
+
+.heart-3 {
+    --tx: 0;
+    --ty: -40px;
+}
+
+/* Share Modal */
+.share-modal {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    z-index: 100;
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.share-modal-content {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    min-width: 250px;
+}
+
+.share-modal-content h4 {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+.share-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.share-option {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.8rem 1rem;
+    background: var(--bg-offset);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: left;
+}
+
+.share-option:hover {
+    background: var(--text);
+    color: var(--bg);
+    transform: translateX(5px);
+}
+
+.share-icon {
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

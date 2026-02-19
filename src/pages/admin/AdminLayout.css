@@ -1,0 +1,206 @@
+:root {
+    --admin-bg: #f8f9fa;
+    --admin-sidebar: #000000;
+    --admin-accent: #ffffff;
+    --admin-border: #e9ecef;
+}
+
+[data-theme='dark'] {
+    --admin-bg: #111111;
+    --admin-sidebar: #000000;
+}
+
+.admin-layout {
+    display: flex;
+    min-height: 100vh;
+    background: var(--admin-bg);
+    color: var(--text);
+}
+
+.admin-sidebar {
+    width: 280px;
+    background: var(--admin-sidebar);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 0;
+    position: fixed;
+    height: 100vh;
+}
+
+.admin-logo {
+    padding: 1rem 2rem 3rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.admin-logo-img {
+    height: 30px;
+    width: auto;
+    filter: brightness(0) invert(1);
+}
+
+.admin-logo span {
+    font-size: 0.55rem;
+    letter-spacing: 0.4em;
+    opacity: 0.5;
+    font-weight: 500;
+}
+
+.admin-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 1;
+}
+
+.admin-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    padding: 1rem 2rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    color: rgba(255, 255, 255, 0.6);
+    transition: all 0.3s ease;
+}
+
+.admin-nav-item:hover,
+.admin-nav-item.active {
+    color: white;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.admin-nav-item.active {
+    border-right: 4px solid white;
+}
+
+.sidebar-footer {
+    padding: 0 2rem;
+    margin-top: auto;
+}
+
+.exit-btn {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    padding: 0.8rem 2rem;
+    width: 100%;
+    text-align: left;
+    transition: all 0.3s ease;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.exit-btn:hover {
+    color: white;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.admin-content {
+    flex: 1;
+    margin-left: 280px;
+    padding: 2rem 4rem;
+}
+
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4rem;
+    padding-bottom: 1rem;
+}
+
+.admin-header h1 {
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    color: #000;
+    text-transform: uppercase;
+}
+
+.admin-user-info {
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    background: var(--bg-offset);
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--border);
+}
+
+.admin-body {
+    animation: fadeIn 0.6s ease;
+}
+
+/* Common Admin UI Elements */
+.admin-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.admin-table th {
+    text-align: left;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--text-muted);
+    padding: 1rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.admin-table td {
+    padding: 1.5rem 1rem;
+    font-size: 0.85rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.status-badge {
+    padding: 0.4rem 1rem;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+    border: 1px solid currentColor;
+}
+
+.status-processing {
+    color: #f39c12;
+}
+
+.status-shipped {
+    color: #3498db;
+}
+
+.status-delivered {
+    color: #2ecc71;
+}
+
+@media (max-width: 1024px) {
+    .admin-sidebar {
+        width: 80px;
+    }
+
+    .admin-sidebar span,
+    .admin-logo h2 {
+        display: none;
+    }
+
+    .admin-content {
+        margin-left: 80px;
+        padding: 2rem;
+    }
+
+    .admin-nav-item {
+        padding: 1.5rem;
+        justify-content: center;
+    }
+}
