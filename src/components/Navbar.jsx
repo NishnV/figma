@@ -7,7 +7,7 @@ import './Navbar.css';
 const Navbar = () => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [lastScrollY, setLastScrollY] = useState(0);
-    const { cart, wishlist, toggleWishlist, removeFromCart, updateQuantity, user, logout, getAllProducts } = useShop();
+    const { cart, wishlist, toggleWishlist, removeFromCart, updateQuantity, user, logout, getAllProducts, isInWishlist } = useShop();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isSearchOpen, setIsSearchOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
@@ -69,7 +69,7 @@ const Navbar = () => {
 
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
-    }, [lastScrollY]);
+    }, []);
 
     return (
         <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
@@ -101,7 +101,7 @@ const Navbar = () => {
                         <div className="nav-search-bar">
                             <input
                                 type="text"
-                                placeholder="SEARCH FOR PRODUCTS..."
+                                placeholder="search for products"
                                 className="nav-search-input"
                                 value={searchQuery}
                                 onChange={handleSearchInput}
@@ -189,21 +189,47 @@ const Navbar = () => {
                             {cart.map(item => (
                                 <div key={`${item.id}-${item.size}`} className="cart-item">
                                     <div className="cart-item-image">
-                                        <img src={item.img} alt={item.name} />
+                                        <img src={item.img || item.images?.[0] || '/placeholder.png'} alt={item.name} />
                                     </div>
                                     <div className="cart-item-details">
-                                        <h4>{item.name}</h4>
-                                        <p>SIZE: {item.size}</p>
-                                        <p>PRICE: {typeof item.price === 'number' ? `RS. ${item.price}` : item.price}</p>
-                                        <div className="quantity-controls">
-                                            <button onClick={() => updateQuantity(item.id, item.size, -1)}>-</button>
-                                            <span>{item.quantity}</span>
-                                            <button onClick={() => updateQuantity(item.id, item.size, 1)}>+</button>
+                                        <h4 className="cart-item-name">{item.name}</h4>
+                                        <div className="cart-item-meta-price">
+                                            <span className="cart-item-meta">BEIGE | {item.size}</span>
+                                            <span className="cart-item-price">{typeof item.price === 'number' ? `RS. ${item.price}` : item.price}</span>
+                                        </div>
+                                        <div className="cart-controls-row">
+                                            <div className="quantity-controls">
+                                                <button onClick={() => updateQuantity(item.id, item.size, -1)}>-</button>
+                                                <span>{item.quantity}</span>
+                                                <button onClick={() => updateQuantity(item.id, item.size, 1)}>+</button>
+                                            </div>
+                                            <button
+                                                className={`wishlist-black ${isInWishlist(item.id) ? 'active' : ''}`}
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    e.stopPropagation();
+                                                    toggleWishlist(item);
+                                                }}
+                                            >
+                                                <svg
+                                                    width="24"
+                                                    height="32"
+                                                    viewBox="0 0 21 29"
+                                                    fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                >
+                                                    <path
+                                                        d="M4 25V4H17V25L10.7097 20.5319L4 25Z"
+                                                        stroke="currentColor"
+                                                        strokeWidth="1"
+                                                        fill={isInWishlist(item.id) ? "currentColor" : "none"}
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                    />
+                                                </svg>
+                                            </button>
                                         </div>
                                     </div>
-                                    <button className="remove-item-btn" onClick={() => removeFromCart(item.id, item.size)}>
-                                        <Trash2 size={16} />
-                                    </button>
                                 </div>
                             ))}
                         </div>

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Play, Pause, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Check, Play, Pause } from 'lucide-react';
 import { useShop } from '../context/ShopContext';
 import './Home.css';
 
 const Home = () => {
-    const { getAllProducts, toggleWishlist, isInWishlist } = useShop();
+    const { getAllProducts, toggleWishlist, isInWishlist, addToCart } = useShop();
     const [products, setProducts] = useState([]);
     const [upcomingProducts, setUpcomingProducts] = useState([]);
     const [isPlaying, setIsPlaying] = useState(true);
@@ -13,6 +13,8 @@ const Home = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isTransitioning, setIsTransitioning] = useState(true);
     const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
+    const [selectedSizes, setSelectedSizes] = useState({});
+    const [addedProduct, setAddedProduct] = useState(null);
 
     const heroImages = [
         '/hero-main.jpg',
@@ -88,6 +90,14 @@ const Home = () => {
         return () => clearInterval(interval);
     }, [isPlaying, heroImages.length]);
 
+    // Clear added product notification after 2 seconds
+    useEffect(() => {
+        if (addedProduct) {
+            const timer = setTimeout(() => setAddedProduct(null), 2000);
+            return () => clearTimeout(timer);
+        }
+    }, [addedProduct]);
+
     return (
         <div className="home-v2">
             {/* Hero Section */}
@@ -111,13 +121,13 @@ const Home = () => {
                                 </Link>
                                 <div className="hero-controls">
                                     <button className="play-pause-btn" onClick={() => setIsPlaying(!isPlaying)}>
-                                        {isPlaying ? <Pause size={14} /> : <Play size={14} />}
+                                        {isPlaying ? <Pause size={16} strokeWidth={2.5} /> : <Play size={16} strokeWidth={2.5} />}
                                     </button>
                                 </div>
                             </div>
                             <div className="hero-info-text-wrapper">
                                 <p className="hero-info-text">
-                                    CRAFTING THE FUTURE OF MODERN MINIMALISM. EXPLORE THE ESSENCE OF REFINED LUXURY. DEFINING A NEW ERA OF ARCHITECTURAL SILHOUETTES AND TIMELESS MINIMALIST ELEGANCE. OUR COLLECTIONS ARE METICULOUSLY CURATED FOR THE DISCERNING INDIVIDUAL, BLENDING SUPERIOR CRAFTSMANSHIP WITH A MODERN VISION OF SOPHISTICATION.
+                                    crafting the future of modern minimalism. explore the essence of refined luxury. defining a new era of architectural silhouettes and timeless minimalist elegance. our collections are meticulously curated for the discerning individual, blending superior craftsmanship with a modern vision of sophistication.
                                 </p>
                             </div>
                         </div>
@@ -165,7 +175,6 @@ const Home = () => {
             {/* Main Product Slider */}
             <section className="product-grid-section">
                 <div className="product-grid-header">
-                    <h2 className="grid-title">ESSENTIAL PIECES</h2>
                 </div>
                 <div className="product-slider-container">
                     <button className="slider-arrow prev" onClick={handlePrev} aria-label="Previous products">
@@ -180,47 +189,76 @@ const Home = () => {
                     >
                         {[...products, ...products, ...products].map((product, index) => (
                             <div key={`${product.id}-${index}`} className="product-card-wrapper reveal reveal-up">
-                                <Link to={`/product/${product.id}`} className="product-card">
+                                <div className="product-card">
                                     <div className="product-image-wrapper">
                                         <img src={product.images?.[0] || product.img} alt={product.name} className="product-image" />
                                         <div className="product-sizes">
-                                            <span>S</span><span>M</span><span>L</span>
+                                            {['XXS', 'XS', 'S', 'M', 'L', 'XL'].map((size) => (
+                                                <button
+                                                    key={size}
+                                                    className={`size-btn ${selectedSizes[product.id] === size ? 'selected' : ''}`}
+                                                    onClick={(e) => {
+                                                        e.preventDefault();
+                                                        e.stopPropagation();
+                                                        setSelectedSizes(prev => ({
+                                                            ...prev,
+                                                            [product.id]: size
+                                                        }));
+                                                        addToCart(product, size);
+                                                        setAddedProduct({ name: product.name, size });
+                                                    }}
+                                                >
+                                                    {size}
+                                                </button>
+                                            ))}
                                         </div>
                                     </div>
-                                    <div className="product-info">
-                                        <div className="product-text">
-                                            <h3 className="product-name">{product.name}</h3>
-                                            <p className="product-price">{product.price}</p>
-                                        </div>
-                                        <button
-                                            className={`wishlist-btn ${isInWishlist(product.id) ? 'active' : ''}`}
-                                            onClick={(e) => {
-                                                e.preventDefault();
-                                                e.stopPropagation();
-                                                toggleWishlist(product);
-                                            }}
-                                        >
-                                            <svg
-                                                width="16"
-                                                height="24"
-                                                viewBox="0 0 24 40"
-                                                fill={isInWishlist(product.id) ? "currentColor" : "none"}
-                                                stroke="currentColor"
-                                                strokeWidth="2"
-                                                strokeLinejoin="miter"
-                                                strokeLinecap="square"
+                                    <Link to={`/product/${product.id}`} className="product-card-link">
+                                        <div className="product-info">
+                                            <div className="product-text">
+                                                <h3 className="product-name">{product.name}</h3>
+                                                <p className="product-price">{product.price}</p>
+                                            </div>
+                                            <button
+                                                className={`wishlist-btn ${isInWishlist(product.id) ? 'active' : ''}`}
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    e.stopPropagation();
+                                                    toggleWishlist(product);
+                                                }}
                                             >
-                                                <path d="M 6 4 H 18 V 36 L 12 30 L 6 36 V 4 Z" />
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </Link>
+                                                <svg
+                                                    width="24"
+                                                    height="32"
+                                                    viewBox="0 0 21 29"
+                                                    fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                >
+                                                    <path
+                                                        d="M4 25V4H17V25L10.7097 20.5319L4 25Z"
+                                                        stroke="currentColor"
+                                                        strokeWidth="1"
+                                                        fill={isInWishlist(product.id) ? "currentColor" : "none"}
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                    />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </Link>
+                                </div>
                             </div>
                         ))}
                     </div>
                     <button className="slider-arrow next" onClick={handleNext} aria-label="Next products">
                         <ChevronRight size={24} strokeWidth={2.5} />
                     </button>
+                    {addedProduct && (
+                        <div className="notification">
+                            <Check size={20} color="#22c55e" strokeWidth={2.5} />
+                            <span>Added {addedProduct.name} in size {addedProduct.size} to cart</span>
+                        </div>
+                    )}
                 </div>
             </section>
         </div>

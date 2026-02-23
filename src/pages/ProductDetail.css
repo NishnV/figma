@@ -128,24 +128,29 @@
 }
 
 .pd-size-text {
-    background: none;
-    border: none;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(2px);
+    border: 1px solid rgba(0, 0, 0, 0.1);
     font-size: 0.9rem;
     font-weight: 400;
-    color: #888;
+    color: #000;
     cursor: pointer;
     letter-spacing: 0.1em;
-    padding: 0.5rem;
-    transition: all 0.2s;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease;
+    border-radius: 2px;
 }
 
 .pd-size-text:hover {
-    color: #000;
+    background: rgba(0, 0, 0, 0.05);
+    opacity: 0.8;
 }
 
 .pd-size-text.active {
     color: #000;
     font-weight: 700;
+    border-color: #000;
+    background: rgba(0, 0, 0, 0.1);
 }
 
 .pd-guide-link {
@@ -194,6 +199,12 @@
     justify-content: center;
     cursor: pointer;
     color: #000;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+}
+
+.pd-wishlist-icon-btn:hover {
+    opacity: 1;
 }
 
 .pd-model-info {
@@ -264,23 +275,33 @@
     margin-bottom: 2rem;
     font-weight: 500;
     text-transform: uppercase;
-    padding-left: 2px;
     color: #000 !important;
+    margin-left: 0;
 }
 
 .rec-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 1rem;
+    gap: 1px;
+    margin: 0 auto;
+    background: #000;
 }
 
 .rec-product {
     display: flex;
     flex-direction: column;
     text-decoration: none;
-    color: #000;
+    color: #fff;
     position: relative;
     cursor: pointer;
+    background: none;
+}
+
+.rec-image-wrapper {
+    position: relative;
+    display: block;
+    text-decoration: none;
+    width: 100%;
 }
 
 .rec-product img {
@@ -288,34 +309,67 @@
     aspect-ratio: 3/4;
     object-fit: cover;
     display: block;
-    margin-bottom: 1rem;
     background: #f5f5f5;
+    transition: transform 0.6s ease;
+    position: relative;
+}
+
+.rec-product:hover img {
+    transform: scale(1.05);
+}
+
+/* Product sizes for recommendations */
+.rec-product .product-sizes {
+    display: none;
 }
 
 .rec-details-row {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
+    padding: 0.6rem 2.5rem 0.5rem 0.8rem;
+    background: #000;
+    color: #fff;
+    gap: 1rem;
 }
 
 .pd-recommendations .rec-info-text {
     display: flex;
     flex-direction: column;
-    gap: 0.3rem;
-    color: #000 !important;
+    gap: 0.5rem;
+    color: #fff !important;
+    flex: 1;
+    align-items: flex-start;
 }
 
 .pd-recommendations .rec-name {
-    font-size: 0.85rem;
-    letter-spacing: 0.1em;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.11em;
     text-transform: uppercase;
-    color: #000 !important;
+    color: #fff !important;
+    opacity: 0.9;
+    line-height: 1.2;
+    transition: all 0.3s ease;
+}
+
+.rec-product:hover .rec-name {
+    opacity: 1;
     font-weight: 500;
 }
 
 .pd-recommendations .rec-price {
     font-size: 0.8rem;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.8) !important;
+    font-weight: 400;
+    opacity: 0.85;
+    transition: all 0.3s ease;
+}
+
+.rec-product:hover .rec-price {
+    opacity: 1;
+}
     color: #000 !important;
 }
 
@@ -327,23 +381,32 @@
 
 .rec-bookmark,
 .rec-bookmark-btn {
-    color: #000;
+    background: none;
+    border: none;
+    color: #fff;
+    padding: 0;
+    transition: opacity 0.3s ease;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 21px;
+    height: 29px;
+    opacity: 1;
     cursor: pointer;
-    transition: opacity 0.2s;
+    z-index: 10;
 }
 
 .rec-bookmark:hover,
 .rec-bookmark-btn:hover {
-    opacity: 0.6;
+    opacity: 0.7;
 }
 
-.rec-bookmark-btn {
-    background: none;
-    border: none;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.rec-bookmark-btn svg,
+.rec-bookmark svg {
+    stroke-linecap: round;
+    stroke-linejoin: round;
 }
 
 @media (max-width: 1024px) {

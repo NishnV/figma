@@ -92,7 +92,12 @@ const Cart = () => {
                     </div>
 
                     <div className="continue-shopping-wrapper">
-                        <Link to="/shop/all" className="continue-shopping">—— Continue shopping</Link>
+                        <Link to="/shop/all" className="continue-shopping">
+                            <svg width="36" height="4" viewBox="0 0 36 4" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0.0732231 1.66423C-0.0244064 1.76186 -0.0244064 1.92015 0.0732231 2.01778L1.66422 3.60877C1.76185 3.7064 1.92014 3.7064 2.01777 3.60877C2.1154 3.51113 2.1154 3.35284 2.01777 3.25521L0.603554 1.841L2.01776 0.426785C2.11539 0.329154 2.11539 0.170863 2.01776 0.0732318C1.92013 -0.0243991 1.76184 -0.0243986 1.66421 0.0732327L0.0732231 1.66423ZM35.25 1.84091L35.25 1.59091L0.25 1.591L0.25 1.841L0.25 2.091L35.25 2.09091L35.25 1.84091Z" fill="white"/>
+                            </svg>
+                            Continue shopping
+                        </Link>
                     </div>
 
                     {/* Recommendations Section - Kept in Left Column */}

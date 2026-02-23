@@ -5,7 +5,7 @@ import './Wishlist.css';
 import './ProductDetail.css';
 
 const Wishlist = () => {
-    const { wishlist, toggleWishlist, addToCart, getAllProducts, getProductById } = useShop();
+    const { wishlist, toggleWishlist, addToCart, getAllProducts, getProductById, isInWishlist } = useShop();
 
     const handleMoveToBag = (item) => {
         const fullProduct = getProductById(item.id);
@@ -47,16 +47,20 @@ const Wishlist = () => {
                                     onClick={() => toggleWishlist(item)}
                                 >
                                     <svg
-                                        width="14"
-                                        height="20"
-                                        viewBox="0 0 24 40"
-                                        fill="currentColor"
-                                        stroke="currentColor"
-                                        strokeWidth="2"
-                                        strokeLinejoin="miter"
-                                        strokeLinecap="square"
+                                        width="24"
+                                        height="32"
+                                        viewBox="0 0 21 29"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
                                     >
-                                        <path d="M 6 4 H 18 V 36 L 12 30 L 6 36 V 4 Z" />
+                                        <path
+                                            d="M4 25V4H17V25L10.7097 20.5319L4 25Z"
+                                            stroke="currentColor"
+                                            strokeWidth="1"
+                                            fill="currentColor"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                        />
                                     </svg>
                                 </button>
                             </div>
@@ -78,38 +82,47 @@ const Wishlist = () => {
             )}
 
             {/* Recommendations Section */}
-            <div className="pd-recommendations">
-                <h3 className="rec-title">YOU MIGHT BE INTERESTED IN</h3>
-                <div className="rec-grid">
+            <div className="wishlist-recommendations">
+                <h3 className="wishlist-rec-title">YOU MIGHT BE INTERESTED IN</h3>
+                <div className="wishlist-rec-grid">
                     {recommendations.map((prod, index) => (
-                        <div className={`rec-product reveal reveal-up reveal-delay-${index + 1}`} key={prod.id}>
-                            <Link to={`/product/${prod.id}`}>
+                        <div className={`wishlist-rec-product reveal reveal-up reveal-delay-${index + 1}`} key={prod.id}>
+                            <Link to={`/product/${prod.id}`} className="wishlist-rec-image-wrapper">
                                 <img src={prod.images?.[0] || prod.img} alt={prod.name} />
+                                <div className="product-sizes">
+                                    {['XXS', 'XS', 'S', 'M', 'L', 'XL'].map((size) => (
+                                        <span key={size}>{size}</span>
+                                    ))}
+                                </div>
                             </Link>
-                            <div className="rec-details-row">
-                                <Link to={`/product/${prod.id}`} className="rec-info-text">
-                                    <span className="rec-name">{prod.name}</span>
-                                    <span className="rec-price">{prod.price}</span>
+                                <div className="wishlist-rec-details-row">
+                                <Link to={`/product/${prod.id}`} className="wishlist-rec-info-text">
+                                    <span className="wishlist-rec-name">{prod.name}</span>
+                                    <span className="wishlist-rec-price">{prod.price}</span>
                                 </Link>
                                 <button
                                     type="button"
-                                    className="rec-bookmark-btn"
+                                    className={`wishlist-rec-bookmark-btn ${isInWishlist(prod.id) ? 'active' : ''}`}
                                     onClick={(e) => {
                                         e.preventDefault();
                                         toggleWishlist({ id: prod.id, name: prod.name, price: prod.price, img: prod.images?.[0] || prod.img });
                                     }}
                                 >
                                     <svg
-                                        width="14"
-                                        height="20"
-                                        viewBox="0 0 24 40"
+                                        width="24"
+                                        height="32"
+                                        viewBox="0 0 21 29"
                                         fill="none"
-                                        stroke="currentColor"
-                                        strokeWidth="2"
-                                        strokeLinejoin="miter"
-                                        strokeLinecap="square"
+                                        xmlns="http://www.w3.org/2000/svg"
                                     >
-                                        <path d="M 6 4 H 18 V 36 L 12 30 L 6 36 V 4 Z" />
+                                        <path
+                                            d="M4 25V4H17V25L10.7097 20.5319L4 25Z"
+                                            stroke="currentColor"
+                                            strokeWidth="1"
+                                            fill={isInWishlist(prod.id) ? "currentColor" : "none"}
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                        />
                                     </svg>
                                 </button>
                             </div>

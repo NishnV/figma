@@ -9,6 +9,8 @@ const Shop = ({ category = "DRESSES" }) => {
     const [viewMode, setViewMode] = React.useState(2); // Default to 2 columns
     const [searchParams] = useSearchParams();
     const searchQuery = searchParams.get('search');
+    const [showBackToTop, setShowBackToTop] = React.useState(false);
+    const shopRef = React.useRef(null);
 
     // Filter and Sort states
     const [isFilterOpen, setIsFilterOpen] = React.useState(false);
@@ -22,11 +24,14 @@ const Shop = ({ category = "DRESSES" }) => {
     const sortRef = useRef(null);
 
     // Handle special category cases
-    let currentCategory = category?.toUpperCase().replace("-", " ") || "ALL";
-    if (currentCategory === "NEW IN 1") currentCategory = "NEW IN";
+    let fetchCategory = category?.toUpperCase().replace("-", " ") || "ALL";
+    if (fetchCategory === "NEW IN 1") fetchCategory = "NEW IN";
+    
+    let currentCategory = fetchCategory;
+    if (currentCategory === "ALL") currentCategory = "ALL PRODUCTS";
 
     // Initial product fetch
-    let rawProducts = getProductsByCategory(currentCategory);
+    let rawProducts = getProductsByCategory(fetchCategory);
 
     // Apply filters
     let filteredProducts = rawProducts.filter(product => {
@@ -94,6 +99,23 @@ const Shop = ({ category = "DRESSES" }) => {
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > 100) {
+                setShowBackToTop(true);
+            } else {
+                setShowBackToTop(false);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    const scrollToTop = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
     const toggleSize = (size) => {
         setSelectedSizes(prev =>
             prev.includes(size) ? prev.filter(s => s !== size) : [...prev, size]
@@ -113,7 +135,8 @@ const Shop = ({ category = "DRESSES" }) => {
     };
 
     return (
-        <div className="shop-page-v2">
+        <>
+            <div className="shop-page-v2">
             <div className="shop-controls-bar">
                 <div className="view-options">
                     <button
@@ -152,7 +175,6 @@ const Shop = ({ category = "DRESSES" }) => {
                         onClick={() => setIsFilterOpen(true)}
                     >
                         FILTER
-                        <ChevronDown size={14} />
                     </button>
 
                     {/* SORT TRIGGER */}
@@ -161,7 +183,6 @@ const Shop = ({ category = "DRESSES" }) => {
                         onClick={() => setIsSortOpen(true)}
                     >
                         SORT
-                        <ChevronDown size={14} />
                     </button>
                 </div>
             </div>
@@ -310,8 +331,8 @@ const Shop = ({ category = "DRESSES" }) => {
                                             <span className="p-name">{product.name}</span>
                                             <span className="p-price">{product.price}</span>
                                         </div>
-                                        <span
-                                            className={`p-bookmark ${isInWishlist(product.id) ? 'active' : ''}`}
+                                        <button
+                                            className={`wishlist-black ${isInWishlist(product.id) ? 'active' : ''}`}
                                             onClick={(e) => {
                                                 e.preventDefault();
                                                 e.stopPropagation();
@@ -319,18 +340,22 @@ const Shop = ({ category = "DRESSES" }) => {
                                             }}
                                         >
                                             <svg
-                                                width="16"
-                                                height="24"
-                                                viewBox="0 0 24 40"
-                                                fill={isInWishlist(product.id) ? "currentColor" : "none"}
-                                                stroke="currentColor"
-                                                strokeWidth="2"
-                                                strokeLinejoin="miter"
-                                                strokeLinecap="square"
+                                                width="24"
+                                                height="32"
+                                                viewBox="0 0 21 29"
+                                                fill="none"
+                                                xmlns="http://www.w3.org/2000/svg"
                                             >
-                                                <path d="M 6 4 H 18 V 36 L 12 30 L 6 36 V 4 Z" />
+                                                <path
+                                                    d="M4 25V4H17V25L10.7097 20.5319L4 25Z"
+                                                    stroke="currentColor"
+                                                    strokeWidth="1"
+                                                    fill={isInWishlist(product.id) ? "currentColor" : "none"}
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                />
                                             </svg>
-                                        </span>
+                                        </button>
                                     </div>
                                 </Link>
                             </div>
@@ -344,7 +369,24 @@ const Shop = ({ category = "DRESSES" }) => {
                     </div>
                 )}
             </div>
-        </div>
+
+            {/* Space before footer */}
+            <div className="shop-spacer"></div>
+
+            {/* Back to Top Button */}
+            {showBackToTop && (
+                <div className="back-to-top-container">
+                    <button 
+                        className="back-to-top-btn"
+                        onClick={scrollToTop}
+                        title="Back to top"
+                    >
+                        BACK TO TOP
+                    </button>
+                </div>
+            )}
+            </div>
+        </>
     );
 };
 

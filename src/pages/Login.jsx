@@ -58,6 +58,7 @@ const Login = ({ mode = 'login' }) => {
                                     <input
                                         type="text"
                                         name="name"
+                                        placeholder="YOUR NAME"
                                         value={formData.name}
                                         onChange={handleChange}
                                         required
@@ -70,6 +71,7 @@ const Login = ({ mode = 'login' }) => {
                                 <input
                                     type="email"
                                     name="email"
+                                    placeholder="EMAIL"
                                     value={formData.email}
                                     onChange={handleChange}
                                     required
@@ -81,6 +83,7 @@ const Login = ({ mode = 'login' }) => {
                                 <input
                                     type="password"
                                     name="password"
+                                    placeholder="PASSWORD"
                                     value={formData.password}
                                     onChange={handleChange}
                                     required
@@ -94,6 +97,7 @@ const Login = ({ mode = 'login' }) => {
                                         <input
                                             type="tel"
                                             name="phone"
+                                            placeholder="+91 ∨ MOBILE"
                                             onChange={handleChange}
                                             required
                                         />

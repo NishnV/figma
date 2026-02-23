@@ -153,7 +153,12 @@ export const ShopProvider = ({ children }) => {
             if (exists) {
                 return prev.filter(item => item.id !== product.id);
             }
-            return [...prev, product];
+            // Ensure the product has the correct image property
+            const normalizedProduct = {
+                ...product,
+                img: product.img || product.images?.[0] || '/placeholder.png'
+            };
+            return [...prev, normalizedProduct];
         });
     };
 

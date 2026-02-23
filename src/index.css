@@ -140,24 +140,24 @@ button:hover:not(.dropdown-trigger):not(.play-pause-btn) {
 
 /* Scroll Reveal Classes */
 .reveal {
-  opacity: 0;
-  transition: all 1.2s cubic-bezier(0.17, 0.55, 0.55, 1);
+  opacity: 1;
+  transition: none;
 }
 
 .reveal-up {
-  transform: translateY(60px);
+  transform: translateY(0);
 }
 
 .reveal-down {
-  transform: translateY(-60px);
+  transform: translateY(0);
 }
 
 .reveal-left {
-  transform: translateX(60px);
+  transform: translateX(0);
 }
 
 .reveal-right {
-  transform: translateX(-60px);
+  transform: translateX(0);
 }
 
 .reveal.active {
@@ -166,19 +166,19 @@ button:hover:not(.dropdown-trigger):not(.play-pause-btn) {
 }
 
 .reveal-delay-1 {
-  transition-delay: 0.1s;
+  transition-delay: 0s;
 }
 
 .reveal-delay-2 {
-  transition-delay: 0.2s;
+  transition-delay: 0s;
 }
 
 .reveal-delay-3 {
-  transition-delay: 0.3s;
+  transition-delay: 0s;
 }
 
 .reveal-delay-4 {
-  transition-delay: 0.4s;
+  transition-delay: 0s;
 }
 
 

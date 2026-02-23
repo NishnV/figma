@@ -11,7 +11,7 @@
     background: #000;
     color: #fff;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1), height 0.3s ease;
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), height 0.3s ease;
 }
 
 
@@ -40,6 +40,7 @@
 .logo {
     display: flex;
     align-items: center;
+    margin-left: -2rem;
 }
 
 .logo-text {
@@ -47,7 +48,7 @@
 }
 
 .logo-img {
-    height: 24px;
+    height: 20px;
     width: auto;
     filter: brightness(0) invert(1);
 }
@@ -61,17 +62,16 @@
 
 .nav-text-btn {
     font-family: Avenir;
-    font-size: 12px;
-    font-weight: 500;
+    font-size: 11.5px;
+    font-weight: 400;
     font-style: normal;
-    line-height: 30px;
-    letter-spacing: 20%;
+    line-height: 15px;
+    letter-spacing: 10%;
     color: #fff;
     background: none;
     border: none;
     padding: 0;
     text-transform: uppercase;
-    transition: opacity 0.3s ease;
     cursor: pointer;
     text-align: center;
     vertical-align: middle;
@@ -80,10 +80,15 @@
     align-items: center;
     justify-content: center;
     white-space: nowrap;
+    width: max-content;
+    text-decoration: none;
 }
 
 .nav-text-btn:hover {
+
     text-decoration: underline;
+    text-decoration-color: #fff;
+    text-underline-offset: 4px;
 }
 
 /* Inline Search Animation */
@@ -95,10 +100,11 @@
     height: 100%;
     width: 50px;
     flex-shrink: 0;
+    transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .nav-search-container.active {
-    opacity: 1;
+    width: 190px;
 }
 
 .search-label {
@@ -106,7 +112,7 @@
     left: 0;
     top: 50%;
     transform: translateY(-50%);
-    transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.4s ease;
+    transition: transform 0.9s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.6s ease;
     white-space: nowrap;
     opacity: 1;
     background: none;
@@ -115,6 +121,20 @@
     cursor: pointer;
     padding: 0;
     z-index: 1;
+    font-family: Avenir;
+    font-size: 11px;
+    font-weight: 350;
+    letter-spacing: 10%;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.nav-search-container.active .search-label {
+    opacity: 0;
+    pointer-events: none;
 }
 
 .nav-right {
@@ -126,29 +146,25 @@
 .nav-icons {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
+    gap: 2.5rem;
 }
 
 .nav-search-bar {
     position: absolute;
-    left: -190px;
-    top: 50%;
-    transform: translateY(-50%);
+    left: 0;
+    top: 0;
     width: 190px;
+    height: 100%;
     opacity: 0;
     display: flex;
     align-items: center;
-    transition: opacity 0.3s ease;
-    border-bottom: 1px solid #fff;
+    transition: opacity 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
     pointer-events: none;
-    overflow: hidden;
     z-index: 2;
-}
-
-.nav-search-container.active .search-label {
-    transform: translateY(-50%) scale(0);
-    opacity: 0;
-    pointer-events: none;
+    border-bottom: 1px solid #fff;
+    padding-bottom: 13px;
+    padding-left: 5px;
+    padding-right: 0.1px;
 }
 
 .nav-search-container.active .nav-search-bar {
@@ -160,17 +176,23 @@
     background: none;
     border: none;
     color: #fff;
-    font-size: 10px;
-    font-weight: 400;
-    letter-spacing: 0.11em;
-    width: 100%;
-    padding: 5px 10px;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 20%;
+    padding: 5px 8px 5px 0;
     text-transform: uppercase;
     outline: none;
+    font-family: Avenir;
+    flex: 1;
+    min-width: 0;
 }
 
 .nav-search-input::placeholder {
     color: rgba(255, 255, 255, 0.5);
+    text-align: center;
+    text-transform: lowercase;
+    font-size: 12px;
+    letter-spacing: 0%;
 }
 
 .search-close-inline {
@@ -181,6 +203,10 @@
     padding: 5px;
     opacity: 0.6;
     transition: opacity 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
 }
 
 .search-close-inline:hover {
@@ -270,13 +296,14 @@
     background: none;
     border: none;
     cursor: pointer;
-    padding: 0.5rem;
+    padding: 0;
     z-index: 1001;
-    /* Above menu overlay */
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 100%;
+    min-width: 24px;
 }
 
 .mobile-menu-btn.active {
@@ -284,22 +311,20 @@
 }
 
 .hamburger-icon {
-    display: flex;
-    flex-direction: column;
-    width: 24px;
+    width: 40px;
     height: 14px;
+    display: block;
     position: relative;
-    align-items: flex-start;
 }
 
 .hamburger-icon span {
     display: block;
-    height: 2px;
+    height: 1px;
     background: #fff;
     position: absolute;
     left: 0;
     width: 100%;
-    transition: transform 0.25s ease, top 0.25s ease, width 0.25s ease, opacity 0.25s ease;
+    transition: transform 0.3s ease, top 0.3s ease, width 0.3s ease, opacity 0.3s ease;
 }
 
 .hamburger-icon span:first-child {
@@ -307,7 +332,7 @@
 }
 
 .hamburger-icon span:last-child {
-    top: 12px;
+    top: 8px;
     width: 70%;
 }
 
@@ -371,7 +396,7 @@
     background: #000;
     color: #fff;
     transform: translateY(-100%);
-    transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1), visibility 0.6s;
+    transition: transform 0.9s cubic-bezier(0.34, 1.56, 0.64, 1), visibility 0.9s;
     z-index: 1;
     /* Stay in front of background, behind content */
     top: var(--navbar-height) !important;
@@ -380,10 +405,9 @@
     display: flex;
     align-items: flex-start;
     flex-direction: column;
-    justify-content: center;
-    /* Vertically center the block if needed, or flex-start */
+    justify-content: flex-start;
     padding-left: 3rem;
-    /* Pushed to the far left container edge */
+    padding-top: 1.5rem;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
     visibility: hidden;
     pointer-events: none;
@@ -524,9 +548,9 @@
 .cart-item {
     display: flex;
     justify-content: space-between;
-    padding-bottom: 2rem;
+    padding-bottom: 1rem;
     margin-bottom: 2rem;
-    border-bottom: 1px solid #e5e5e5;
+    border-bottom: 2px solid #e5e5e5;
 }
 
 .cart-item-details {
@@ -537,28 +561,35 @@
 }
 
 .cart-item-name {
-    font-size: 0.9rem;
-    letter-spacing: 0.1em;
-    font-weight: 600;
+    font-size: 0.8rem;
+    letter-spacing: 0.01em;
+    font-weight: 900;
     margin-bottom: 1.5rem;
     text-transform: uppercase;
 }
 
 .cart-item-meta {
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     color: #666;
     letter-spacing: 0.1em;
-    margin-bottom: 0.2rem;
     text-transform: uppercase;
+    margin: 0;
+}
+
+.cart-item-meta-price {
     display: flex;
-    gap: 0.5rem;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 0.8rem;
+    gap: 0.3rem;
 }
 
 .cart-item-price {
-    font-size: 0.9rem;
+    font-size: 0.75rem;
     font-weight: 600;
     letter-spacing: 0.05em;
-    margin-bottom: 1.5rem;
+    margin: 0;
+}
 }
 
 .cart-actions-row {
@@ -656,28 +687,31 @@
     list-style: none;
     padding: 0;
     margin: 0;
+    margin-left: 4.5rem;
+    margin-top: 1rem;
     display: grid;
     grid-template-columns: repeat(3, max-content);
-    gap: 2rem 6rem;
+    gap: 1rem 5rem;
 }
 
 .menu-links li a {
     font-family: Avenir;
-    font-size: 12px;
-    font-weight: 500;
+    font-size: 11px;
+    font-weight: 350;
     font-style: normal;
-    line-height: 30px;
-    letter-spacing: 20%;
+    line-height: 20px;
+    letter-spacing: 5%;
     color: #fff;
     text-decoration: none;
     transition: opacity 0.3s ease;
     display: inline-block;
     text-align: center;
-    vertical-align: middle;
+    vertical-align: bottom;
+    width: max-content;
 }
 
 .menu-links li a:hover {
-    text-decoration: underline;
+    opacity: 0.7;
 }
 
 /* Ensure menu always has white text as requested */
@@ -752,7 +786,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #e5e5e5;
 }
 
 .cart-panel-header h3 {
@@ -784,21 +817,42 @@
 .cart-items-list {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 0;
 }
 
 .cart-item {
-    display: grid;
-    grid-template-columns: 80px 1fr auto;
+    display: flex;
     gap: 1rem;
+    padding-top: 2rem;
     padding-bottom: 2rem;
-    border-bottom: 1px solid #e5e5e5;
     position: relative;
+    align-items: stretch;
+    border-bottom: 1px solid #000;
+}
+
+.cart-item:not(:first-child) {
+    margin-top: -15px;
+}
+
+.cart-item .cart-item-image {
+    order: 2;
+}
+
+.cart-item .cart-item-details {
+    order: 1;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.cart-item .remove-item-btn {
+    display: none;
 }
 
 .cart-item-image {
-    width: 80px;
-    height: 100px;
+    width: 100px;
+    height: 120px;
     background: #f5f5f5;
     overflow: hidden;
 }
@@ -812,16 +866,19 @@
 .cart-item-details {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0;
+    flex: 1;
+    justify-content: space-between;
 }
 
 .cart-item-name {
     font-size: 0.75rem;
-    font-weight: 500;
+    font-weight: 900;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: #000;
     margin: 0;
+    margin-bottom: 0.2rem;
 }
 
 .cart-item-size {
@@ -829,13 +886,16 @@
     color: #666;
     letter-spacing: 0.05em;
     margin: 0;
+    margin-bottom: -12px;
+    line-height: 2;
 }
 
 .cart-item-price {
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     color: #000;
     letter-spacing: 0.05em;
     margin: 0;
+    font-weight: 700;
 }
 
 .cart-item-controls {
@@ -845,26 +905,90 @@
     margin-top: 0.5rem;
 }
 
+.cart-controls-row {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.cart-controls-row .wishlist-black {
+    width: 32px;
+    height: 32px;
+    border: none;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    color: #000;
+    cursor: pointer;
+    flex-shrink: 0;
+    position: relative;
+    opacity: 1;
+    z-index: 10;
+    transition: opacity 0.3s ease;
+}
+
+.cart-controls-row .wishlist-black:hover {
+    opacity: 0.7;
+}
+
+.cart-controls-row .wishlist-black.active {
+    opacity: 1;
+    color: #000;
+}
+
+.cart-controls-row .wishlist-black.active svg {
+    fill: #000;
+    stroke: #000;
+}
+
+.cart-controls-row .wishlist-black svg {
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
 .quantity-controls {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
     border: 1px solid #e5e5e5;
+    height: 32px;
 }
 
 .quantity-controls button {
     background: none;
-    border: none;
-    padding: 0.3rem 0.7rem;
+    border-right: 1px solid #e5e5e5;
+    padding: 0;
     cursor: pointer;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: #000;
+    flex: 1;
+    text-align: center;
+    text-decoration: none !important;
+    transition: background-color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.quantity-controls button:last-of-type {
+    border-right: none;
+}
+
+.quantity-controls button:hover {
+    text-decoration: none !important;
+    background-color: #f5f5f5;
 }
 
 .quantity-controls span {
-    font-size: 0.7rem;
-    min-width: 20px;
+    font-size: 0.75rem;
+    flex: 1;
     text-align: center;
+    border-right: 1px solid #e5e5e5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
 }
 
 .add-to-wishlist-btn {
@@ -872,7 +996,7 @@
     border: none;
     font-size: 0.55rem;
     letter-spacing: 0.1em;
-    text-decoration: underline;
+    text-decoration: none;
     color: #666;
     cursor: pointer;
     padding: 0;
@@ -895,7 +1019,6 @@
 
 .cart-panel-footer {
     padding: 2rem;
-    border-top: 1px solid #e5e5e5;
 }
 
 .go-to-bag-btn {
@@ -921,3 +1044,14 @@
         width: 100%;
     }
 }
+
+/*
+
+spacing bw login, search etc. and underline for buttons should have a gap - nav-text-btn:hover, .nav-right
+all products moved down - .menu-overlay
+zara animation
+pause button centerd - hero-controls
+heart, circle - done
+polygon - equilateral - centered - slider-arrow
+size weight reduction - .size-btn
+*/

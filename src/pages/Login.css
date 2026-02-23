@@ -64,13 +64,13 @@
 }
 
 .m-form-group {
-    margin-bottom: 2.5rem;
+    margin-bottom: 1.5rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
     position: relative;
 }
 
 .m-input-label {
-    display: block;
+    display: none;
     font-size: 0.65rem;
     letter-spacing: 0.15em;
     color: rgba(255, 255, 255, 0.6);
@@ -84,9 +84,17 @@
     border: none;
     padding: 0.5rem 0;
     color: white;
-    font-size: 0.85rem;
+    font-size: 0.95rem;
+    font-weight: 500;
     letter-spacing: 0.1em;
     outline: none;
+}
+
+.m-form-group input::placeholder {
+    color: rgb(255, 255, 255);
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.15em;
 }
 
 /* For the mobile field dropdown arrow simulation */
